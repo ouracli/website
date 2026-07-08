@@ -5,5 +5,9 @@
   "assets": {
     "directory": "./public",
     "not_found_handling": "404-page"
-  }
+  },
+  "routes": [
+    { "pattern": "ouracli.com", "custom_domain": true },
+    { "pattern": "www.ouracli.com", "custom_domain": true }
+  ]
 }
