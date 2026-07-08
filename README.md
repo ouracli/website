@@ -1,12 +1,12 @@
 # ouracli.com
 
-Marketing site for [**ouracli**](https://github.com/ouracli/oura) — an agent-first
+Marketing site for [**ouracli**](https://github.com/ouracli/oura), an agent-first
 CLI and MCP server for the Oura Ring API v2.
 
 A single static page (`public/index.html`) served by a Cloudflare Worker named
 `ourcli`. A thin Worker (`src/index.js`) runs in front of the
 [static assets](https://developers.cloudflare.com/workers/static-assets/) via
-`run_worker_first` and serves them through the `ASSETS` binding — it exists only
+`run_worker_first` and serves them through the `ASSETS` binding. It exists only
 so [DataFast](https://datafa.st) can track AI/bot crawlers server-side
 (`@datafast/ai-crawl`). Human pageviews and custom goals are tracked by the
 `datafa.st/js/script.js` tag in the page `<head>`.
@@ -46,8 +46,8 @@ wrangler.jsonc # Worker config (name: ourcli, main + assets binding)
 
 ## Analytics (DataFast)
 
-- **Pageviews** — `datafa.st/js/script.js` tag in `public/index.html`.
-- **Custom goals** — `visit-github` and `visit-akeemjenkins` fire via
+- **Pageviews**: `datafa.st/js/script.js` tag in `public/index.html`.
+- **Custom goals**: `visit-github` and `visit-akeemjenkins` fire via
   `window.datafast(...)` on the outbound links.
-- **Bot/AI-crawler tracking** — `src/index.js` wraps the fetch handler with
+- **Bot/AI-crawler tracking**: `src/index.js` wraps the fetch handler with
   `@datafast/ai-crawl`'s `withAICrawlerTracking`.

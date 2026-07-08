@@ -1,8 +1,8 @@
-<title>ouracli — your Oura data, in your agent</title>
+<title>ouracli: your Oura data, in your agent</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="An agent-first CLI and MCP server for the Oura Ring API v2. Give Claude or Codex read access to your own Oura data — sleep, readiness, HRV, workouts — with one command.">
-<meta property="og:title" content="ouracli — your Oura data, in your agent">
+<meta name="description" content="An agent-first CLI and MCP server for the Oura Ring API v2. Give Claude or Codex read access to your own Oura data (sleep, readiness, HRV, workouts) with one command.">
+<meta property="og:title" content="ouracli: your Oura data, in your agent">
 <meta property="og:description" content="An agent-first CLI and MCP server for the Oura Ring API v2. Give Claude or Codex read access to your own Oura data with one command.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ouracli.com">
@@ -28,7 +28,7 @@
     --paper-2:    #efece5;
     --card:       #ffffff;
     --line:       #e4e0d7;
-    --accent:     #e8734a;   /* warm coral — complement to Oura blue */
+    --accent:     #e8734a;   /* warm coral, complement to Oura blue */
     --accent-2:   #f4a259;   /* amber */
     --night:      #0a1f3c;
     --night-2:    #0e2a4f;
@@ -232,7 +232,7 @@
     <h1>Your Oura data, <em>in the hands</em> of your agent.</h1>
     <p class="lede">
       A fast, agent-first CLI and MCP server for the Oura Ring. Give Claude or Codex
-      read access to your own sleep, readiness, HRV and workouts — and let it help you
+      read access to your own sleep, readiness, HRV and workouts, and let it help you
       make sense of your health.
     </p>
     <div class="hero-cta">
@@ -254,7 +254,7 @@
       <div class="section-head center">
         <div class="kicker">The point of the whole thing</div>
         <h2>Point your agent at <em>your own</em> ring.</h2>
-        <p>ouracli doubles as an MCP server — every Oura endpoint becomes a tool your agent can call. One command wires it up. Your tokens stay in your OS keychain, never in the model's context.</p>
+        <p>ouracli doubles as an MCP server. Every Oura endpoint becomes a tool your agent can call, and one command wires it up. Your tokens stay in your OS keychain, never in the model's context.</p>
       </div>
 
       <div class="tabs" role="tablist">
@@ -322,7 +322,7 @@ args = ["mcp", "serve"]'>Copy</button>
           <div class="step">
             <div class="step-num">3</div>
             <div class="step-body">
-              <p><strong>Connect your real ring</strong> once with <code style="font-family:'SF Mono',monospace;background:var(--paper);padding:2px 6px;border-radius:5px;font-size:13px;">oura auth login</code> — or append <code style="font-family:'SF Mono',monospace;background:var(--paper);padding:2px 6px;border-radius:5px;font-size:13px;">--sandbox</code> above to try it credential-free first.</p>
+              <p><strong>Connect your real ring</strong> once with <code style="font-family:'SF Mono',monospace;background:var(--paper);padding:2px 6px;border-radius:5px;font-size:13px;">oura auth login</code>, or append <code style="font-family:'SF Mono',monospace;background:var(--paper);padding:2px 6px;border-radius:5px;font-size:13px;">--sandbox</code> above to try it credential-free first.</p>
             </div>
           </div>
         </div>
@@ -340,17 +340,17 @@ args = ["mcp", "serve"]'>Copy</button>
       <div class="card">
         <div class="ico">🧩</div>
         <h3>The full API, current</h3>
-        <p>Every Oura API v2 data type — including the newest: resilience, cardiovascular age, VO2 max, SpO2, stress. Nothing left on the table.</p>
+        <p>Every Oura API v2 data type, including the newest: resilience, cardiovascular age, VO2 max, SpO2, stress. Nothing left on the table.</p>
       </div>
       <div class="card">
         <div class="ico">🤖</div>
         <h3>Self-describing</h3>
-        <p><code style="font-size:13px;font-family:'SF Mono',monospace">oura schema</code> emits a live tool manifest — flags, types, exit codes. Your agent loads it once instead of scraping help text.</p>
+        <p><code style="font-size:13px;font-family:'SF Mono',monospace">oura schema</code> emits a live tool manifest with flags, types, and exit codes. Your agent loads it once instead of scraping help text.</p>
       </div>
       <div class="card">
         <div class="ico">📐</div>
         <h3>JSON on stdout, always</h3>
-        <p>One document, an NDJSON stream, or a typed error envelope — never prose. Branch on <code style="font-size:13px;font-family:'SF Mono',monospace">.error.kind</code>, not grep.</p>
+        <p>One document, an NDJSON stream, or a typed error envelope, never prose. Branch on <code style="font-size:13px;font-family:'SF Mono',monospace">.error.kind</code>, not grep.</p>
       </div>
       <div class="card">
         <div class="ico">🔐</div>
@@ -365,7 +365,7 @@ args = ["mcp", "serve"]'>Copy</button>
       <div class="card">
         <div class="ico">⚡</div>
         <h3>One binary, two tools</h3>
-        <p>The same registry drives the CLI, the schema manifest, and the MCP server — so they can never drift apart. One <code style="font-size:13px;font-family:'SF Mono',monospace">go</code> binary, no runtime.</p>
+        <p>The same registry drives the CLI, the schema manifest, and the MCP server, so they can never drift apart. One <code style="font-size:13px;font-family:'SF Mono',monospace">go</code> binary, no runtime.</p>
       </div>
     </div>
   </section>
@@ -382,20 +382,20 @@ args = ["mcp", "serve"]'>Copy</button>
         </p>
       </div>
       <div>
-        <p class="big">Every Oura CLI and MCP I tried came up short — stale on the API, missing the newest and most interesting data types, or simply broken when I reached for them.</p>
+        <p class="big">Every Oura CLI and MCP I tried came up short: stale on the API, missing the newest and most interesting data types, or simply broken when I reached for them.</p>
         <p>The Oura API had already shipped resilience, cardiovascular age, VO2 max, richer sleep and stress data. None of it was exposed. So I built the tool I wanted: one that keeps pace with the full API, is designed from the ground up for an agent to drive, and treats your credentials with the care they deserve.</p>
         <div class="why-points" style="margin-top:34px">
           <div class="why-point">
             <h4>Complete, and kept current</h4>
-            <p>Coverage of the whole v2 surface — not just sleep and activity, but every endpoint Oura ships.</p>
+            <p>Coverage of the whole v2 surface, not just sleep and activity, but every endpoint Oura ships.</p>
           </div>
           <div class="why-point">
             <h4>Empowering, not extractive</h4>
-            <p>This is your data. The goal is to put it in your hands — and your agent's — so it can actually help your health journey.</p>
+            <p>This is your data. The goal is to put it in your hands, and your agent's, so it can actually help your health journey.</p>
           </div>
           <div class="why-point">
             <h4>Agentic by design</h4>
-            <p>Typed errors, a stable exit-code enum, a schema manifest, and an MCP server — built so a model can drive it reliably.</p>
+            <p>Typed errors, a stable exit-code enum, a schema manifest, and an MCP server, all built so a model can drive it reliably.</p>
           </div>
         </div>
       </div>
