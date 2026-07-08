@@ -53,13 +53,13 @@ wrangler.jsonc   # Worker config (name: ourcli, main + assets binding)
 The site is built to be easy for LLMs and agents to find, index, and use,
 following the [llms.txt](https://llmstxt.org) convention:
 
-- **`/llms.txt`** — a concise Markdown index (site name, summary, key links).
-- **`/llms-full.txt`** — the complete site content as clean plain text, so an
+- **`/llms.txt`**: a concise Markdown index (site name, summary, key links).
+- **`/llms-full.txt`**: the complete site content as clean plain text, so an
   agent can load full context in one request.
-- **`/robots.txt`** — explicitly allows AI crawlers and sets
+- **`/robots.txt`**: explicitly allows AI crawlers and sets
   [Content Signals](https://developers.cloudflare.com/ai-crawl-control/)
   (`search`, `ai-input`, `ai-train`) to `yes`.
-- **`/sitemap.xml`** — lists the page and the llms files.
+- **`/sitemap.xml`**: lists the page and the llms files.
 - **JSON-LD** (`SoftwareApplication`) and `<link rel="alternate">` tags in the
   page `<head>` point machines at the llms files.
 
