@@ -1,0 +1,23 @@
+# ouracli
+
+> An agent-first CLI and MCP server for the Oura Ring API v2. It gives an AI agent (such as Claude or Codex, or any MCP client) secure, read-only access to a person's own Oura Ring health data: sleep, readiness, HRV, activity, workouts, stress, resilience, SpO2, cardiovascular age, VO2 max, and more.
+
+ouracli (the binary is named `oura`) is an unofficial, independent, open-source project licensed under Apache-2.0. It is not affiliated with, endorsed by, or sponsored by Oura Health Oy. Its purpose is to help people use their own Oura data inside an AI agent so they feel empowered on their health journey. Output is always JSON on stdout (a single document, an NDJSON stream, or a typed error envelope), never prose. The same binary doubles as an MCP server, so every Oura endpoint becomes a callable tool. Credentials live in the operating system keychain and never enter the model's context. A zero-credential sandbox mode returns realistic fake data for every endpoint, so an agent or a person can try it without an account.
+
+## Docs
+
+- [Full site content](https://ouracli.com/llms-full.txt): The complete plain-text description of ouracli, including install steps, agent setup, the command list, the output contract, and authentication.
+- [Homepage](https://ouracli.com): The ouracli website.
+- [Source, README, and issues](https://github.com/ouracli/oura): The full project documentation and source code on GitHub.
+
+## Setup for agents
+
+- [Add to Claude Code](https://ouracli.com/llms-full.txt): Run `claude mcp add oura -- oura mcp serve` after installing the CLI.
+- [Add to Codex](https://ouracli.com/llms-full.txt): Run `codex mcp add oura -- oura mcp serve`, or add an `[mcp_servers.oura]` block to `~/.codex/config.toml`.
+- [Try with zero credentials](https://ouracli.com/llms-full.txt): Append `--sandbox` to any command or MCP server to use fake data with no account.
+
+## Optional
+
+- [Oura Ring API v2 docs](https://cloud.ouraring.com/v2/docs): The underlying official Oura API that ouracli wraps.
+- [Homebrew tap](https://github.com/ouracli/homebrew-oura): The Homebrew formula used to install the CLI.
+- [Author](https://akeemjenkins.com): Akeem Jenkins, who designed and built ouracli.

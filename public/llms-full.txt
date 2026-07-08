@@ -1,0 +1,147 @@
+# ouracli
+
+> An agent-first CLI and MCP server for the Oura Ring API v2. It gives an AI agent (such as Claude or Codex, or any MCP client) secure, read-only access to a person's own Oura Ring health data: sleep, readiness, HRV, activity, workouts, stress, resilience, SpO2, cardiovascular age, VO2 max, and more.
+
+ouracli is an unofficial, independent, open-source project licensed under Apache-2.0. It is not affiliated with, endorsed by, or sponsored by Oura Health Oy. "Oura" and related marks are trademarks of Oura Health Oy; this project uses them only to describe interoperability with the Oura API. The binary is named `oura`. The project home is https://ouracli.com and the source is at https://github.com/ouracli/oura. It was designed and built by Akeem Jenkins (https://akeemjenkins.com).
+
+## What it is
+
+"Agent-first" means the primary caller is a language model, not a human at a terminal. Standard output always carries JSON: a single document, an NDJSON stream, or a typed error envelope, never prose. Every subcommand is self-describing through `oura schema`, so an agent loads the manifest once instead of scraping help text. Failures return a stable shape, `{"error":{"kind","code","reason","message","hint"}}`, with a stable exit-code enum, so an agent can branch on `.error.kind` instead of parsing stderr. Secrets never touch the agent's context: tokens live in the operating system keyring, or in an AES-256-GCM encrypted file where no keyring exists, and are resolved transparently per request. Because agents are increasingly MCP clients, the whole tool doubles as an MCP server (`oura mcp serve`) with no extra code. The same endpoint registry drives the CLI, the schema manifest, and the MCP tool list, so all three can never drift apart.
+
+Humans are welcome too. Pass `--pretty` anywhere for indented JSON, and `oura sleep --sandbox` works with zero credentials, because Oura publishes a sandbox environment that mirrors every data endpoint with fake data.
+
+## Why it was built
+
+Every existing Oura CLI and MCP server came up short: stale on the API, missing the newest and most interesting data types, or simply broken. The Oura API had already shipped resilience, cardiovascular age, VO2 max, and richer sleep and stress data, and none of it was exposed. ouracli was built to keep pace with the full v2 API, to be driven reliably by an agent, and to treat credentials with care. The goal is to put a person's own data in their hands, and their agent's hands, so it can actually help their health journey.
+
+## Install
+
+Homebrew (macOS and Linux):
+
+```
+brew tap ouracli/oura
+brew trust ouracli/oura
+brew install oura
+```
+
+Verify:
+
+```
+oura version
+```
+
+Go users can instead run `go install github.com/ouracli/oura/cmd/oura@latest`, or build from source with `git clone https://github.com/ouracli/oura && cd oura && make build`.
+
+## Use inside an AI agent (the primary use case)
+
+ouracli doubles as an MCP server that exposes every Oura endpoint as a tool (`oura_sleep`, `oura_heartrate`, `oura_workouts`, and so on), plus `oura_auth_status`.
+
+Claude Code:
+
+```
+claude mcp add oura -- oura mcp serve
+```
+
+Codex CLI:
+
+```
+codex mcp add oura -- oura mcp serve
+```
+
+Or add this block to `~/.codex/config.toml`:
+
+```
+[mcp_servers.oura]
+command = "oura"
+args = ["mcp", "serve"]
+```
+
+Claude Desktop, in `claude_desktop_config.json`:
+
+```
+{
+  "mcpServers": {
+    "oura": {
+      "command": "oura",
+      "args": ["mcp", "serve"]
+    }
+  }
+}
+```
+
+Try any of these with zero credentials by adding `--sandbox` (for example `claude mcp add oura-sandbox -- oura mcp serve --sandbox`), which routes every tool call to Oura's fake-data sandbox. Tool results carry the raw Oura JSON as a text block; failures carry the same error envelope the CLI emits, with `CallToolResult.IsError` set.
+
+## Quickstart with zero credentials
+
+```
+oura sleep --sandbox --pretty
+```
+
+This needs no account and no API key. `--sandbox` routes to Oura's public sandbox, which returns realistic fake data for every endpoint except `profile`.
+
+## Connecting a real ring
+
+Oura retired Personal Access Tokens in December 2025, so OAuth is the way in. Create a free OAuth application at https://cloud.ouraring.com/oauth/applications, set the Redirect URI to exactly `http://localhost:8989/callback`, then run `oura auth login`. It asks for the Client ID and Client Secret, opens the browser to Oura's consent page, and stores the resulting tokens in the OS keychain. Tokens refresh automatically. Run `oura doctor` to confirm every check passes, then pull data with commands like `oura sleep --pretty`.
+
+## Commands
+
+Every data command defaults to the last 7 days and shares the same flags: `--start` and `--end` (YYYY-MM-DD), `--fields` for a server-side projection, `--next-token` to resume pagination, `--all` to follow pagination and stream NDJSON, and `--pretty` for indented JSON. Run `oura schema` for the full, current, machine-readable list.
+
+- `oura sleep`: Daily sleep score (0 to 100) with contributor breakdown (deep sleep, REM, latency, efficiency, restfulness, timing). Oura endpoint: daily_sleep.
+- `oura sleep-periods`: Detailed per-period sleep sessions with phases, heart rate, HRV, breathing, efficiency, latency. Oura endpoint: sleep.
+- `oura sleep-time`: Recommended optimal bedtime window and timing recommendation. Oura endpoint: sleep_time.
+- `oura activity`: Daily activity score with steps, active and total calories, MET minutes. Oura endpoint: daily_activity.
+- `oura readiness`: Daily readiness score with contributors (resting heart rate, HRV balance, recovery index, body temperature). Oura endpoint: daily_readiness.
+- `oura stress`: Daily high-stress and recovery time totals with a day-summary label. Oura endpoint: daily_stress.
+- `oura resilience`: Long-term resilience level with contributors (sleep recovery, daytime recovery, stress). Oura endpoint: daily_resilience.
+- `oura spo2`: Daily average blood-oxygen percentage during sleep and breathing-disturbance index. Oura endpoint: daily_spo2.
+- `oura cardio-age`: Estimated vascular age and pulse-wave velocity. Oura endpoint: daily_cardiovascular_age.
+- `oura vo2max`: Estimated VO2 max (cardiorespiratory fitness). Oura endpoint: vO2_max.
+- `oura heartrate`: Time-series heart-rate samples tagged by source, over a datetime range. Oura endpoint: heartrate.
+- `oura battery`: Time-series ring battery level over a datetime range. Oura endpoint: ring_battery_level.
+- `oura workouts`: Logged workouts with activity type, intensity, calories, distance, source, times. Oura endpoint: workout.
+- `oura sessions`: Guided or logged sessions (meditation, breathing) with mood, heart rate, HRV, motion. Oura endpoint: session.
+- `oura tags`: Enhanced tags, user-annotated events with type, name, comment, and times. Oura endpoint: enhanced_tag.
+- `oura rest-mode`: Rest Mode periods with per-episode detail. Oura endpoint: rest_mode_period.
+- `oura ring`: Ring hardware configuration (color, design, hardware, size, firmware). Oura endpoint: ring_configuration.
+- `oura profile`: Personal info (user id, age, biological sex, height, weight, email). No sandbox route. Oura endpoint: personal_info.
+- `oura auth login | status | logout`: Manage credentials.
+- `oura doctor`: Onboarding diagnostics (config, keyring, network, token) as JSON.
+- `oura schema`: Emit the JSON tool manifest of all commands, flags, and exit codes.
+- `oura mcp serve`: Run the MCP server on stdio.
+
+A command that takes a document ID short-circuits to that single document, ignoring the range flags, for example `oura sleep daily_sleep-0-2026-6-29`.
+
+## Output contract
+
+Every failure uses the same shape on stdout and nothing else is written to stdout for that invocation:
+
+```
+{"error":{"kind":"usage","code":3,"reason":"bad_start_date","message":"...","hint":"dates must be YYYY-MM-DD"}}
+```
+
+The `kind` field and the process exit code always agree:
+
+- 0 ok: success, continue.
+- 1 internal: bug or unexpected, surface to caller.
+- 2 auth: missing, invalid, or expired credentials, 401 or 403, run `oura auth login`.
+- 3 usage: bad flags, args, or dates, fix the invocation via `oura schema`.
+- 4 config: config file or keyring problem, run `oura doctor`.
+- 5 api: Oura API rejected the request (other than auth), inspect `.error.reason`.
+- 6 network: timeout, DNS, or connection failure, retry with backoff.
+- 7 ratelimit: HTTP 429, wait then retry (see `.hint` for Retry-After).
+- 8 subscription: HTTP 426, data requires an active Oura membership, inform the user.
+
+With `--all`, stdout switches to an NDJSON stream: one raw document per line, following `next_token` until exhausted, terminated by exactly one summary line, for example `{"count":7,"endpoint":"sleep","ok":true,"type":"summary"}`. If pagination fails partway, the stream still ends with exactly one summary line carrying `ok:false` and an embedded error envelope.
+
+## Authentication details
+
+ouracli uses the OAuth2 authorization-code flow with a loopback redirect. The authorize endpoint is on cloud.ouraring.com and the token endpoint is on api.ouraring.com, and ouracli handles the split transparently. Oura refresh tokens are single-use and rotate on every exchange; ouracli persists the rotated refresh token before using the new access token, so a crash mid-refresh cannot strand the account. Scopes are `email personal daily heartrate workout tag session spo2`. Setting the `OURA_TOKEN` environment variable makes every command use that bearer token directly, bypassing the keyring. Credentials are stored in the OS keyring (macOS Keychain, Windows Credential Manager, or libsecret on Linux), with an AES-256-GCM encrypted-file fallback where no keyring is reachable.
+
+## Links
+
+- Website: https://ouracli.com
+- Source and README: https://github.com/ouracli/oura
+- Homebrew tap: https://github.com/ouracli/homebrew-oura
+- Oura Ring API v2 docs: https://cloud.ouraring.com/v2/docs
+- Author: https://akeemjenkins.com

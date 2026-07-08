@@ -1,0 +1,18 @@
+# ouracli.com welcomes AI agents, assistants, and crawlers.
+# The whole point of this project is to help people use their Oura data
+# inside an AI agent, so indexing, retrieval, and answering are all welcome.
+
+User-agent: *
+Allow: /
+
+# Content usage preferences (Content Signals). "yes" grants the use.
+# search: build a search index. ai-input: answer with the content in real time.
+# ai-train: train or fine-tune models on the content.
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+# For AI agents: a concise, machine-readable index of this site.
+# See https://llmstxt.org
+# LLM-Index: https://ouracli.com/llms.txt
+# LLM-Full: https://ouracli.com/llms-full.txt
+
+Sitemap: https://ouracli.com/sitemap.xml
