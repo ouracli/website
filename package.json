@@ -1,0 +1,12 @@
+{
+  "name": "ouracli-website",
+  "private": true,
+  "description": "Marketing site for ouracli (ouracli.com), deployed to Cloudflare Workers.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}
