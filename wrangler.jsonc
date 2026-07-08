@@ -1,10 +1,15 @@
 {
   // Cloudflare Worker serving the ouracli.com static marketing site.
+  // A thin Worker runs in front of the static assets (run_worker_first) so
+  // DataFast's server-side AI/bot crawler tracking sees every request.
   "name": "ourcli",
   "compatibility_date": "2026-07-01",
+  "main": "src/index.js",
   "assets": {
     "directory": "./public",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "binding": "ASSETS",
+    "run_worker_first": true
   },
   "routes": [
     { "pattern": "ouracli.com", "custom_domain": true },

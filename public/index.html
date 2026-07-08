@@ -7,6 +7,12 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ouracli.com">
 <!-- DataFast analytics -->
+<script id="datafast-queue">
+  // Queue goal events fired before the main script finishes loading.
+  window.datafast = window.datafast || function () {
+    (window.datafast.q = window.datafast.q || []).push(arguments);
+  };
+</script>
 <script defer data-website-id="dfid_VCTF31bztQV1azbjpfz8s" data-domain="ouracli.com" src="https://datafa.st/js/script.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -214,7 +220,7 @@
       <a class="hide-sm" href="#agents">Use in your agent</a>
       <a class="hide-sm" href="#why">Why</a>
       <a class="hide-sm" href="#commands">Commands</a>
-      <a class="nav-cta" href="https://github.com/ouracli/oura" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="nav-cta" href="https://github.com/ouracli/oura" target="_blank" rel="noopener" onclick="window.datafast('visit-github')">GitHub ↗</a>
     </nav>
   </div>
 </header>
@@ -372,7 +378,7 @@ args = ["mcp", "serve"]'>Copy</button>
         <h2>The tools existed. They just <em>didn't work.</em></h2>
         <p style="color:#a9b8d1;font-size:15.5px;margin-top:18px">
           Designed &amp; built by
-          <a href="https://akeemjenkins.com" target="_blank" rel="noopener" style="color:#f4a259;font-weight:600;text-decoration:none">Akeem Jenkins ↗</a>.
+          <a href="https://akeemjenkins.com" target="_blank" rel="noopener" onclick="window.datafast('visit-akeemjenkins')" style="color:#f4a259;font-weight:600;text-decoration:none">Akeem Jenkins ↗</a>.
         </p>
       </div>
       <div>
@@ -435,7 +441,7 @@ args = ["mcp", "serve"]'>Copy</button>
         <button class="copy-btn" data-copy="oura sleep --sandbox --pretty">Copy</button>
       </div>
       <div style="margin-top:28px">
-        <a class="btn btn-primary" style="background:#fff;color:var(--ink)" href="https://github.com/ouracli/oura" target="_blank" rel="noopener">Read the docs on GitHub ↗</a>
+        <a class="btn btn-primary" style="background:#fff;color:var(--ink)" href="https://github.com/ouracli/oura" target="_blank" rel="noopener" onclick="window.datafast('visit-github')">Read the docs on GitHub ↗</a>
       </div>
     </div>
   </section>
@@ -452,13 +458,13 @@ args = ["mcp", "serve"]'>Copy</button>
         <a href="#agents">Use in your agent</a>
         <a href="#why">Why</a>
         <a href="#commands">Commands</a>
-        <a href="https://github.com/ouracli/oura" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://github.com/ouracli/oura" target="_blank" rel="noopener" onclick="window.datafast('visit-github')">GitHub ↗</a>
         <a href="https://cloud.ouraring.com/v2/docs" target="_blank" rel="noopener">Oura API docs ↗</a>
-        <a href="https://akeemjenkins.com" target="_blank" rel="noopener">Akeem Jenkins ↗</a>
+        <a href="https://akeemjenkins.com" target="_blank" rel="noopener" onclick="window.datafast('visit-akeemjenkins')">Akeem Jenkins ↗</a>
       </nav>
     </div>
     <p style="font-size:14px;color:var(--ink-soft);margin:0 0 18px;">
-      Designed &amp; built by <a href="https://akeemjenkins.com" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;text-decoration:none">Akeem Jenkins</a>.
+      Designed &amp; built by <a href="https://akeemjenkins.com" target="_blank" rel="noopener" onclick="window.datafast('visit-akeemjenkins')" style="color:var(--accent);font-weight:600;text-decoration:none">Akeem Jenkins</a>.
     </p>
     <p class="disclaimer">
       <strong>Unofficial project.</strong> ouracli is an independent, community-built CLI for the Oura API.
