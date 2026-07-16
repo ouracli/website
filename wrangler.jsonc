@@ -2,7 +2,10 @@
   // Cloudflare Worker serving the ouracli.com static marketing site.
   // A thin Worker runs in front of the static assets (run_worker_first) so
   // DataFast's server-side AI/bot crawler tracking sees every request.
-  "name": "ouracli",
+  // The Worker was created as "ourcli" (typo) and the Workers Builds git
+  // integration is bound to that name; it must stay "ourcli" unless the
+  // Worker itself is renamed in the Cloudflare dashboard first.
+  "name": "ourcli",
   "compatibility_date": "2026-07-01",
   "main": "src/index.js",
   "assets": {
