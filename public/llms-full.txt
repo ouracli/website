@@ -34,7 +34,7 @@ Go users can instead run `go install github.com/ouracli/oura/cmd/oura@latest`, o
 
 ## Use inside an AI agent (the primary use case)
 
-ouracli doubles as an MCP server that exposes every Oura endpoint as a tool (`oura_sleep`, `oura_heartrate`, `oura_workouts`, and so on), plus `oura_auth_status`.
+ouracli doubles as an MCP server that exposes every Oura endpoint as a tool (`oura_sleep`, `oura_heartrate`, `oura_workouts`, and so on), plus `oura_auth_status`. It speaks MCP 2.0 (the 2026-07-28 stateless spec) and negotiates down to every earlier protocol version, so both new and old MCP clients work.
 
 Claude Code:
 
