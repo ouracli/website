@@ -10,6 +10,6 @@
     "wrangler": "^4"
   },
   "dependencies": {
-    "@datafast/ai-crawl": "^1.0.7"
+    "@datafast/ai-crawl": "^1.0.9"
   }
 }
