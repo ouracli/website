@@ -18,6 +18,9 @@ npm install
 npm run dev      # local preview at http://localhost:8787
 ```
 
+Miniflare's `sharp` dependency is overridden to `^0.35.5` to include its
+security fixes. Remove the override once Miniflare includes a patched version.
+
 ## Deploy
 
 Manually:

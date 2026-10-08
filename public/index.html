@@ -324,7 +324,7 @@
       <div class="section-head center">
         <div class="kicker">The point of the whole thing</div>
         <h2>Point your agent at <em>your own</em> ring.</h2>
-        <p>ouracli doubles as an MCP server, speaking MCP 2.0 (the 2026-07-28 spec) with negotiation back to every earlier version. Every Oura endpoint becomes a tool your agent can call, and one command wires it up. Your tokens stay in your OS keychain, never in the model's context.</p>
+        <p>ouracli doubles as an MCP server, speaking MCP 2.0 (the 2026-07-28 spec) with negotiation back to every earlier version. Every Oura data type becomes a tool your agent can call, and one command wires it up. Your tokens stay in your OS keychain, never in the model's context.</p>
       </div>
 
       <div class="tabs" role="tablist">
@@ -358,7 +358,7 @@
           <div class="step">
             <div class="step-num">3</div>
             <div class="step-body">
-              <p><strong>Connect your real ring</strong> once with <code style="font-family:var(--mono);background:var(--paper);padding:2px 6px;border-radius:5px;font-size:13px;">oura auth login</code>, then just ask: <em>“How has my HRV trended against my readiness this week?”</em></p>
+              <p><strong>Connect your real ring.</strong> Create an OAuth app in the <a href="https://developer.ouraring.com/" target="_blank" rel="noopener">Oura Developer Portal</a>, register <code>http://localhost:8989/callback</code> as its redirect URI, then run <code style="font-family:var(--mono);background:var(--paper);padding:2px 6px;border-radius:5px;font-size:13px;">oura auth login</code>. Then ask: <em>“How has my HRV trended against my readiness this week?”</em></p>
             </div>
           </div>
         </div>
@@ -392,7 +392,7 @@ args = ["mcp", "serve"]'>Copy</button>
           <div class="step">
             <div class="step-num">3</div>
             <div class="step-body">
-              <p><strong>Connect your real ring</strong> once with <code style="font-family:var(--mono);background:var(--paper);padding:2px 6px;border-radius:5px;font-size:13px;">oura auth login</code>, or append <code style="font-family:var(--mono);background:var(--paper);padding:2px 6px;border-radius:5px;font-size:13px;">--sandbox</code> above to try it credential-free first.</p>
+              <p><strong>Connect your real ring.</strong> Create an OAuth app in the <a href="https://developer.ouraring.com/" target="_blank" rel="noopener">Oura Developer Portal</a>, register <code>http://localhost:8989/callback</code> as its redirect URI, then run <code style="font-family:var(--mono);background:var(--paper);padding:2px 6px;border-radius:5px;font-size:13px;">oura auth login</code>, or append <code style="font-family:var(--mono);background:var(--paper);padding:2px 6px;border-radius:5px;font-size:13px;">--sandbox</code> above to try it credential-free first.</p>
             </div>
           </div>
         </div>
@@ -430,7 +430,7 @@ args = ["mcp", "serve"]'>Copy</button>
       <div class="card">
         <div class="ico">🧪</div>
         <h3>Zero-credential sandbox</h3>
-        <p>Oura's public sandbox mirrors every endpoint with fake data. See the real JSON shape before wiring up a single credential.</p>
+        <p>Oura's public sandbox mirrors 18 data types with fake data (personal info requires a real login). See the real JSON shape before wiring up a single credential.</p>
       </div>
       <div class="card">
         <div class="ico">⚡</div>
@@ -457,7 +457,7 @@ args = ["mcp", "serve"]'>Copy</button>
         <div class="why-points" style="margin-top:34px">
           <div class="why-point">
             <h4>Complete, and kept current</h4>
-            <p>Coverage of the whole v2 surface, not just sleep and activity, but every endpoint Oura ships.</p>
+            <p>All 19 Oura v2 data types, including individual documents where available. <a href="https://github.com/ouracli/oura/blob/main/docs/API-COVERAGE.md" target="_blank" rel="noopener">Audited against OpenAPI 1.41</a>. Webhook subscription management is outside the CLI’s read-only scope.</p>
           </div>
           <div class="why-point">
             <h4>Empowering, not extractive</h4>
@@ -529,6 +529,7 @@ args = ["mcp", "serve"]'>Copy</button>
         <a href="#why">Why</a>
         <a href="#commands">Commands</a>
         <a href="https://github.com/ouracli/oura" target="_blank" rel="noopener" onclick="window.datafast('visit-github')">GitHub ↗</a>
+        <a href="https://developer.ouraring.com/" target="_blank" rel="noopener">Oura Developer Portal ↗</a>
         <a href="https://cloud.ouraring.com/v2/docs" target="_blank" rel="noopener">Oura API docs ↗</a>
         <a href="https://akeemjenkins.com" target="_blank" rel="noopener" onclick="window.datafast('visit-akeemjenkins')">Akeem Jenkins ↗</a>
       </nav>
