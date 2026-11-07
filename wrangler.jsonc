@@ -6,7 +6,7 @@
   // integration is bound to that name; it must stay "ourcli" unless the
   // Worker itself is renamed in the Cloudflare dashboard first.
   "name": "ourcli",
-  "compatibility_date": "2026-07-01",
+  "compatibility_date": "2026-11-01",
   "main": "src/index.js",
   "assets": {
     "directory": "./public",

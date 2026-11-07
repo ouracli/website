@@ -7,14 +7,9 @@
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
-    "wrangler": "^4.148.0"
+    "wrangler": "^4.158.0"
   },
   "dependencies": {
     "@datafast/ai-crawl": "^1.0.9"
-  },
-  "overrides": {
-    "miniflare": {
-      "sharp": "^0.35.5"
-    }
   }
 }
