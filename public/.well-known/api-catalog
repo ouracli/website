@@ -1,0 +1,16 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://ouracli.com/",
+      "service-doc": [
+        { "href": "https://github.com/ouracli/oura#readme", "type": "text/html", "title": "ouracli README: install, agent setup, commands" },
+        { "href": "https://github.com/ouracli/oura/blob/main/docs/MCP.md", "type": "text/html", "title": "ouracli MCP server (oura mcp serve)" },
+        { "href": "https://github.com/ouracli/oura/blob/main/docs/API-COVERAGE.md", "type": "text/html", "title": "Oura API v2 coverage audit" }
+      ],
+      "describedby": [
+        { "href": "https://ouracli.com/llms.txt", "type": "text/plain", "title": "llms.txt index" },
+        { "href": "https://ouracli.com/llms-full.txt", "type": "text/markdown", "title": "Full site content for LLMs" }
+      ]
+    }
+  ]
+}

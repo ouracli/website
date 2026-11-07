@@ -6,9 +6,10 @@ CLI and MCP server for the Oura Ring API v2.
 A single static page (`public/index.html`) served by a Cloudflare Worker named
 `ourcli`. A thin Worker (`src/index.js`) runs in front of the
 [static assets](https://developers.cloudflare.com/workers/static-assets/) via
-`run_worker_first` and serves them through the `ASSETS` binding. It exists only
-so [DataFast](https://datafa.st) can track AI/bot crawlers server-side
-(`@datafast/ai-crawl`). Human pageviews and custom goals are tracked by the
+`run_worker_first` and serves them through the `ASSETS` binding. It lets
+[DataFast](https://datafa.st) track AI/bot crawlers server-side
+(`@datafast/ai-crawl`), negotiates Markdown for agents, and adds discovery
+`Link` headers (see below). Human pageviews and custom goals are tracked by the
 `datafa.st/js/script.js` tag in the page `<head>`.
 
 ## Develop
@@ -43,8 +44,10 @@ public/
   llms-full.txt  # AI discovery: full plain-text content for LLMs
   robots.txt     # welcomes AI crawlers + Content-Signal usage grants
   sitemap.xml    # sitemap incl. the llms files
+  .well-known/
+    api-catalog  # RFC 9727 linkset (served as application/linkset+json)
 src/
-  index.js       # thin Worker: server-side bot tracking, then serves assets
+  index.js       # thin Worker: bot tracking, Markdown negotiation, Link headers
 wrangler.jsonc   # Worker config (name: ourcli, main + assets binding)
 ```
 
@@ -60,6 +63,18 @@ following the [llms.txt](https://llmstxt.org) convention:
   [Content Signals](https://developers.cloudflare.com/ai-crawl-control/)
   (`search`, `ai-input`, `ai-train`) to `yes`.
 - **`/sitemap.xml`**: lists the page and the llms files.
+- **Markdown for Agents**: `GET /` with `Accept: text/markdown` returns the
+  `llms-full.txt` content as `Content-Type: text/markdown` with an
+  `x-markdown-tokens` estimate (unknown paths get a Markdown 404). Browsers
+  still get HTML. HTML and Markdown responses send `Vary: Accept`, and because
+  the Worker runs before any asset lookup, the edge cannot serve the wrong
+  representation from cache. Try it:
+  `curl -H 'Accept: text/markdown' https://ouracli.com/`
+- **`Link` headers** ([RFC 8288](https://www.rfc-editor.org/rfc/rfc8288)) on the
+  homepage point at `/.well-known/api-catalog` (`api-catalog`, per
+  [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727#section-3)), the GitHub
+  README (`service-doc`), the llms files (`describedby`), the Markdown version
+  (`alternate`), and the sitemap. Check with `curl -I https://ouracli.com/`.
 - **JSON-LD** (`SoftwareApplication`) and `<link rel="alternate">` tags in the
   page `<head>` point machines at the llms files.
 
